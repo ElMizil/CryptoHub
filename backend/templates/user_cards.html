@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User's Cards</title>
+</head>
+<body>
+    <h1>User's Cards</h1>
+    <ul>
+        {% for card in user_cards %}
+            <li>
+                Cardholder Name: {{ card.cardholder_name }}<br>
+                Card Number: {{ card.number }}<br>
+                Expiration Date: {{ card.expiration_date }}<br>
+                <!-- Display other card details as needed -->
+            </li>
+            <hr>
+        {% empty %}
+            <li>No cards found</li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'user_info' %}"><button type="button">Back</button></a>
+</body>
+</html>

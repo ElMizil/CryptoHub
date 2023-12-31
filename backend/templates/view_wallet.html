@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>View Wallet</title>
+</head>
+<body>
+    <h2>Your Wallet</h2>
+    <p>Wallet ID: {{ user_wallet.id }}</p>
+    <p>Owner: {{ user_wallet.user.username }}</p>
+    <h3>Coins:</h3>
+    <ul>
+        {% for coin_balance in coin_balances %}
+            <li>{{ coin_balance.coin__name }} - {{ coin_balance.total_amount }}</li>
+        {% empty %}
+            <li>No coins in your wallet yet.</li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'user_info' %}"><button type="button">Return Home</button></a>
+</body>
+</html>

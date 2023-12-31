@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Send</title>
+</head>
+<body>
+    <h1>Send Cryptos</h1>
+    <form id="buyForm" method="post" action="#">
+        {% csrf_token %}
+
+        <!-- Hidden input field to store and send the token -->
+        <input type="hidden" id="jwtToken" name="jwtToken">
+        
+        <label for="receiver">Write the ID of the Wallet or the owner:</label><br>
+        <input type="text" id="receiver" name="receiver" required><br><br>
+
+        <label for="crypto">Which crypto?</label><br>
+        <select id="crypto" name="crypto" required>
+            {% for coin_balance in coin_balances %}
+                <option value="{{ coin_balance.coin__name }}"> {{ coin_balance.coin__name }}</li>
+            {% endfor %}
+        </select><br><br>
+
+        <label for="amount">How many?</label><br>
+        <input type="number" id="amount" name="amount" required><br><br>
+        
+        <button type="submit">Send Cryptocurrency</button>
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <p{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </form><br>
+    <a href="{% url 'user_info' %}"><button type="button">Return Home</button></a>
+</body>

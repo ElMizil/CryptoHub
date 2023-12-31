@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Card</title>
+</head>
+<body>
+    <h1>Add New Card</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Add Card</button>
+    </form>
+    <a id="depositButton"><button type="button">Back</button></a>
+</body>
+
+<script>
+    // Get the token from the URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const token = urlParams.get('token');
+
+    // Store the token in local storage
+    if (token) {
+      localStorage.setItem('jwtToken', token);
+    }
+
+    // Optional: Redirect to another page after storing the token
+    // window.location.href = '/another_page'; // Replace '/another_page' with your desired URL
+    document.addEventListener('DOMContentLoaded', () => {
+        // Get the token from Local Storage
+        const token = localStorage.getItem('jwtToken');
+
+        // If the token exists, log it or use it as needed
+        if (token) {
+            console.log('Token retrieved:', token);
+            // Perform actions with the token, like appending it to a URL or setting it in a form input
+
+            const depositButton = document.getElementById('depositButton'); // Replace with your button ID or element
+            depositButton.href = `/user/deposit/?token=${token}`; // Update the href attribute with the token
+
+        } else {
+            console.log('Token not found in Local Storage');
+        }
+    });
+
+  </script>
+
+</html>

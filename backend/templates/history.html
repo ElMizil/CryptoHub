@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Transactions</title>
+</head>
+<body>
+    <h1>User Transactions</h1>
+    <ul>
+        {% for transaction in user_transactions %}
+            <li>{{ transaction.timestamp }} - {{ transaction.transaction_type }} - {{ transaction.amount }}</li>
+        {% empty %}
+            <li>No transactions found</li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'user_info' %}"><button type="button">Return Home</button></a>
+</body>
+</html>

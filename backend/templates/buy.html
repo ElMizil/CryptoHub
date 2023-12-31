@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Buy Cryptocurrency</title>
+</head>
+<body>
+    <h1>Buy Cryptocurrency</h1>
+    <h1>Cryptocurrency Prices</h1>
+    <ul>
+        {% for symbol, price in prices.items %}
+            <li>{{ symbol | title }}: ${{ price }}</li>
+        {% endfor %}
+    </ul><br>
+    <form id="buyForm" method="post" action="#">
+        {% csrf_token %}
+
+        <!-- Hidden input field to store and send the token -->
+        <input type="hidden" id="jwtToken" name="jwtToken">
+
+        <label for="crypto_type">Select Cryptocurrency:</label><br>
+        <!-- Add dropdown/select for cryptocurrency types -->
+        <select id="crypto" name="crypto" required>
+            {% for symbol, price in prices.items %}
+                <option value ="{{ symbol | title }}">{{ symbol | title }}</option>
+            {% endfor %}
+        </select><br><br>
+        
+        <label for="amount">Amount (USD) to Buy:</label><br>
+        <input type="number" id="amount" name="amount" min="0" step="0.01" required><br><br>
+        
+        <button type="submit">Buy Cryptocurrency</button>
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <p{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </form>
+    <a href="{% url 'user_info' %}"><button type="button">Return Home</button></a>
+
+    
+</body>
+</html>

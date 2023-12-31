@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Info</title>
+    <!-- Add any necessary CSS or styling -->
+</head>
+<body>
+    <h1>User Information</h1>
+    <p>Username: {{ user.username }}</p>
+    <p>First name: {{user.name}}</p>
+    <p>Last name: {{user.surname}}</p>
+    <p>Currency(USD): {{user.currency}}$</p>
+    <p>User since: {{ user.date_joined }}</p>
+    <!-- Display other user details as needed -->
+    <a id="depositButton"><button type="button">Deposit USD</button></a>
+    
+    <a id="cryptoButton" href="#"><button type="button">Crypto Operations</button></a>
+
+    <a href="{% url 'check_history' %}"><button type="button">Check transaction history</button></a>
+    <a href="{% url 'user_cards' %}"><button type="button">Check Cards</button></a>
+    <a href="{% url 'view_wallet' %}"><button type="button">Check Crypto Wallet</button></a>
+
+
+    <script>
+        // Get the token from the URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const token = urlParams.get('token');
+    
+        // Store the token in local storage
+        if (token) {
+          localStorage.setItem('jwtToken', token);
+        }
+    
+        // Optional: Redirect to another page after storing the token
+        // window.location.href = '/another_page'; // Replace '/another_page' with your desired URL
+        document.addEventListener('DOMContentLoaded', () => {
+            // Get the token from Local Storage
+            const token = localStorage.getItem('jwtToken');
+
+            // If the token exists, log it or use it as needed
+            if (token) {
+                console.log('Token retrieved:', token);
+                // Perform actions with the token, like appending it to a URL or setting it in a form input
+                // Example: 
+                const buyButton = document.getElementById('cryptoButton'); // Replace with your button ID or element
+                buyButton.href = `/user/crypto-operations/?token=${token}`; // Update the href attribute with the token
+
+                const depositButton = document.getElementById('depositButton'); // Replace with your button ID or element
+                depositButton.href = `/user/deposit/?token=${token}`; // Update the href attribute with the token
+
+            } else {
+                console.log('Token not found in Local Storage');
+            }
+        });
+
+      </script>
+
+    <!-- Add forms or links for user interactions -->
+</body>
+</html>

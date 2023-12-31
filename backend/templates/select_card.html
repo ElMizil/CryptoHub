@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Select Card for Deposit</title>
+</head>
+<body>
+    <h1>Select Card for Deposit</h1>
+    <form method="post">
+        {% csrf_token %}
+        <label for="selected_card">Choose a card:</label>
+        <select name="selected_card" id="selected_card">
+            {% for card in user_cards %}
+                <option value="{{ card.id }}">{{ card }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit">Select Card</button>
+    </form>
+    <a href="{% url 'deposit_view' %}"><button type="button">Back</button></a>
+</body>
+</html>

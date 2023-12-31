@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Deposit</title>
+</head>
+<body>
+    <h1>Deposit USD</h1>
+    <form method="post" action="#">
+        {% csrf_token %}
+        <label for="amount_usd">Enter USD amount to deposit and choose the card from which you want to make the deposit:</label><br>
+        <input type="number" id="amount_usd" name="amount_usd" min="0" step="0.01" required>
+        <select name="selected_card" id="selected_card">
+            {% for card in user_cards %}
+                <option value="{{ card.id }}">{{ card }}</option>
+            {% endfor %}
+        </select><br><br>
+        <button type="submit">Deposit</button>
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <p{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </form>
+    <a href="{% url 'add_card' %}"><button type="button">Add Card</button></a>
+    <a href="{% url 'user_info' %}"><button type="button">Return Home</button></a>
+</body>
